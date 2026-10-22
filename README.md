@@ -1,46 +1,51 @@
-# WebSocket Server
+# WebSocket Server: Real-Time Document Editor
 
-This repository contains a simple WebSocket server built as a learning project to understand real-time communication between a client and a server.
+A real-time collaborative text editor. Users can create, open, edit, and delete documents, and every change is pushed instantly to everyone viewing the same document. Documents are saved in MongoDB.
 
-The project demonstrates how WebSockets work, allowing bidirectional communication and real-time message exchange.
+Built while following Alura's WebSockets course, as a learning project on real-time communication.
 
-## Purpose
+## Tech
 
-This project was created to:
-- Learn the fundamentals of WebSocket communication
-- Understand real-time data exchange
-- Practice server-side event handling
-- Explore persistent client-server connections
-
-## Technologies Used
-
-- JavaScript
-- WebSocket protocol
-- Node.js (if applicable)
+Node.js · Express · Socket.IO · MongoDB · HTML / JavaScript
 
 ## Features
 
-- Real-time bidirectional communication
-- Persistent WebSocket connections
-- Simple message handling between client and server
-- Lightweight and easy-to-understand implementation
+- Create, list, and delete documents
+- Live editing: text changes are broadcast to every client in the same document
+- Persistent storage in MongoDB
+- Duplicate-name check when creating a document
 
-## How It Works
+## How it works
 
-The server:
-1. Establishes a persistent WebSocket connection with clients
-2. Listens for incoming messages
-3. Sends messages back to connected clients in real time
-4. Keeps the connection open until closed by the client or server
+- `src/servidor.js`: Express serves the front end and starts the Socket.IO server.
+- `src/socket-back.js`: handles socket events (list, create, edit, delete documents).
+- `src/documentosDb.js`: MongoDB queries for the `documentos` collection.
+- `public/`: front end that connects to the server through Socket.IO.
 
-## What I Learned
+## Run locally
 
-Through this project, I learned:
-- How WebSockets differ from traditional HTTP requests
-- How real-time communication is implemented
-- How to manage persistent connections
-- The basics of event-driven server architecture
+```bash
+git clone https://github.com/JoaoAntonioCarvalho/WebSocket-Server
+cd WebSocket-Server
+npm install
+```
 
-## Notes
+Create a `.env` file in the project root with your MongoDB connection string:
 
-This project was developed as a learning exercise to better understand real-time systems and communication protocols.
+```
+LINK=mongodb+srv://<user>:<password>@<cluster>/
+```
+
+Then start the server:
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3100.
+
+## What I learned
+
+- How WebSockets differ from regular HTTP requests
+- Event-driven server design with Socket.IO rooms and events
+- Keeping several clients in sync with a shared database
